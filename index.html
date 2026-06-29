@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -263,7 +264,7 @@ body{
           <div class="ba-preview-img-box ba-preview-locked" onclick="showPayModal()" style="cursor:pointer;">
             <div class="ba-preview-lock-cover">
               <div class="ba-preview-lock-icon">🔒</div>
-              <div class="ba-preview-lock-price">9,900원</div>
+              <div class="ba-preview-lock-price">$3</div>
               <div class="ba-preview-lock-label">AI After 미리보기</div>
             </div>
           </div>
@@ -288,7 +289,7 @@ body{
         <div class="upload-icon-box"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#f2d5cc"/><path d="M14 8a5 5 0 1 1 0 10A5 5 0 0 1 14 8zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" fill="#ff6272"/><path d="M7 20c0-3.31 3.13-6 7-6s7 2.69 7 6" stroke="#ff6272" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div>
           <div class="upload-card-title">정면 촬영 <span class="upload-req">필수</span></div>
-          <div class="upload-card-sub" id="frontName">정면과 목까지 나오게<br>크게 찍으세요</div>
+          <div class="upload-card-sub" id="frontName">크게 찍으세요</div>
         </div>
       </div>
       <div class="upload-card-badge" id="frontBadge"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#22a876"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -307,7 +308,7 @@ body{
     <div class="upload-preview-row" id="uploadPreviews">
       <div class="upload-preview-box" id="frontPreviewBox">
         <div class="upload-preview-label">정면 사진</div>
-        <div class="upload-preview-inner" id="frontPreviewInner">얼굴+목 전체가 나오게</div>
+        <div class="upload-preview-inner" id="frontPreviewInner">얼굴 전체가 나오게</div>
       </div>
       <div class="upload-preview-box upload-preview-box-optional" id="sidePreviewBox">
         <div class="upload-preview-label">측면 사진</div>
@@ -346,7 +347,7 @@ body{
     <div class="eyebrow">AI REPORT</div><div class="h1" style="font-size:24px">구조 분석 리포트</div><div class="report-head" id="metrics"></div>
     <div class="section-title"><span class="badge">I</span>미적 지표 분석</div><div id="indexScores" class="card"></div><div class="section-title"><span class="badge">T</span>핵심 기술 로직</div><div id="techLogic" class="tech-logic card"></div><div class="section-title"><span class="badge">A</span>Before / After 비교</div><div id="photoRows"></div>
     <div class="section-title"><span class="badge">B</span>상세 분석</div><div id="details"></div>
-    <div class="section-title"><span class="badge">C</span>매칭 병원 리스트</div><div id="hospitals"></div>
+    <div class="section-title"><span class="badge">C</span>매칭 병원 리스트</div><div style="position:relative;border-radius:17px;overflow:hidden;min-height:160px;"><div id="hospitals" style="filter:blur(5px);pointer-events:none;user-select:none;"></div><div id="hospitalLockCover" style="position:absolute;inset:0;background:rgba(255,247,243,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:17px;border:1.5px dashed #f2d5cc;padding:28px 20px;text-align:center;"><div style="font-size:28px;">🏥</div><div style="font-size:15px;font-weight:900;color:#221514;">매칭 병원 리스트</div><div style="font-size:12px;color:#7a615d;line-height:1.6;">분석 결과에 맞는 전문 병원 리스트를<br>잠금 해제 후 확인하세요.</div><div style="font-size:18px;font-weight:900;color:#ff6272;margin:4px 0;">$2</div><div style="display:flex;gap:6px;width:100%;max-width:240px;"><input id="hospitalPwInput" type="password" placeholder="시연 코드 입력" style="flex:1;border:1.5px solid #f2d5cc;border-radius:10px;padding:0 12px;height:42px;font-size:14px;font-weight:700;outline:none;text-align:center;background:#fff;color:#221514;" onkeydown="if(event.key==='Enter')checkHospitalPw()"><button onclick="checkHospitalPw()" style="border:0;border-radius:10px;background:linear-gradient(135deg,#ff6272,#ff8a5c);color:#fff;height:42px;padding:0 14px;font-size:13px;font-weight:900;cursor:pointer;">확인</button></div><div id="hospitalPwErr" style="font-size:11px;color:#ff6272;display:none;">코드가 올바르지 않습니다</div><a href="https://pay.airwallex.com/sghjsz2vp9km" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;border-radius:12px;background:linear-gradient(135deg,#ff6272,#ff8a5c);color:#fff;height:46px;padding:0 24px;font-size:14px;font-weight:900;box-shadow:0 8px 20px rgba(255,98,114,.28);">🔓 $2 결제하기</a><div style="font-size:10px;color:#aaa;margin-top:2px;">협력 병원 준비 중 · Coming Soon</div></div></div>
     <div class="section-title"><span class="badge">D</span>추천 성형 항목</div><div id="recs"></div>
     <div class="section-title"><span class="badge">E</span>가격 리스트</div><div id="prices"></div><div class="total"><span>견적 총합</span><strong id="totalPrice">-</strong></div>
     <div class="section-title"><span class="badge">F</span>종합 의견</div><div class="card"><p class="copy" id="summary"></p><p class="notice" id="mode"></p></div>
@@ -371,28 +372,50 @@ function setAge(btn,v){age=v;btn.parentElement.querySelectorAll('button').forEac
 const BA_TAB_DESC={'코 구조':'코 구조 분석 &nbsp;콧대 각도 97° · 코끝 돌출 +3mm 개선 필요','눈 비율':'눈 비율 분석 &nbsp;눈 너비 14mm → 32mm · 쌍꺼풀 라인','턱 라인':'윤곽 분석 &nbsp;광대 축소 · 턱선 가름 · V라인 강조','입술':'입술 분석 &nbsp;윗입술 +3mm · 안각 +1mm · 턱끝 -2mm','재수술 고민':'재수술 분석 &nbsp;기존 시술 데이터 기반 재개선 방향 제시'};
 function setLandingTab(btn,tab){document.querySelectorAll('.ba-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('landingBeforeDesc').innerHTML=BA_TAB_DESC[tab]||'';}
 function previewFile(type){const input=document.getElementById(type+'File');const file=input.files[0];if(!file)return;const url=URL.createObjectURL(file);if(type==='front'){frontUrl=url;document.getElementById('frontName').textContent=file.name;document.getElementById('frontPreviewInner').innerHTML='<img class="upload-preview-img" src="'+url+'">';document.getElementById('frontBadge').innerHTML='<svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#22a876"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';document.getElementById('frontCard').style.borderColor='#22a876';}else{sideUrl=url;document.getElementById('sideName').textContent=file.name;document.getElementById('sidePreviewInner').innerHTML='<img class="upload-preview-img" src="'+url+'">';document.getElementById('sideBadge').innerHTML='<svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#22a876"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';document.getElementById('sideCard').style.borderColor='#22a876';}}
-/* ── 이미지 자동 축소: 긴 변이 MAX_PX를 넘으면 비율 유지하며 리사이즈 ── */
-const MAX_PX = 1600;
+/* ── 이미지 자동 압축: 1MB 초과 시 품질·해상도 조절로 1MB 이하로 축소 ── */
+const MAX_BYTES = 1 * 1024 * 1024; // 1MB
+const MAX_PX = 1920;               // 최대 장변 픽셀
+
 function resizeImageFile(file) {
   return new Promise((resolve) => {
+    // 1MB 이하이면 그대로 반환
+    if (file.size <= MAX_BYTES) { resolve(file); return; }
+
     const img = new Image();
     const url = URL.createObjectURL(file);
+
     img.onload = () => {
       URL.revokeObjectURL(url);
       const { naturalWidth: w, naturalHeight: h } = img;
+
+      // 1차: 장변을 MAX_PX 이하로 리사이즈
       const long = Math.max(w, h);
-      if (long <= MAX_PX) { resolve(file); return; }
-      const scale = MAX_PX / long;
+      const scale = long > MAX_PX ? MAX_PX / long : 1;
       const nw = Math.round(w * scale);
       const nh = Math.round(h * scale);
       const canvas = document.createElement('canvas');
       canvas.width = nw; canvas.height = nh;
       canvas.getContext('2d').drawImage(img, 0, 0, nw, nh);
-      canvas.toBlob(
-        (blob) => resolve(new File([blob], file.name, { type: 'image/jpeg' })),
-        'image/jpeg', 0.88
-      );
+
+      // 2차: quality를 0.9→0.8→0.7→0.6→0.5 순으로 낮춰 1MB 이하 달성
+      const qualities = [0.9, 0.8, 0.7, 0.6, 0.5];
+      let idx = 0;
+
+      const tryQuality = () => {
+        const q = qualities[idx];
+        canvas.toBlob((blob) => {
+          if (!blob) { resolve(file); return; }
+          if (blob.size <= MAX_BYTES || idx >= qualities.length - 1) {
+            resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }));
+          } else {
+            idx++;
+            tryQuality();
+          }
+        }, 'image/jpeg', q);
+      };
+      tryQuality();
     };
+
     img.src = url;
   });
 }
@@ -427,32 +450,114 @@ async function startAnalysis(){
     sideRaw ? resizeImageFile(sideRaw) : Promise.resolve(null)
   ]);
 
-  const fd=new FormData();
-  fd.append('front',front);
-  if(side) fd.append('side',side);
-  fd.append('gender',gender);
-  fd.append('age',age);
-  fd.append('concern',selectedConcern);
+  // 이미지를 base64로 변환
+  async function fileToBase64(file){
+    return new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=e=>resolve(e.target.result.split(',')[1]);
+      reader.onerror=reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  const frontB64=await fileToBase64(front);
+  const sideB64=side?await fileToBase64(side):null;
 
-  // 스텝 타이머 (서버 응답 기다리는 동안 자동 진행)
+  // 스텝 타이머
   const stepTimer = setTimeout(()=>setLoadingStep(3), 4000);
   const stepTimer2 = setTimeout(()=>setLoadingStep(4), 10000);
   const stepTimer3 = setTimeout(()=>setLoadingStep(5), 16000);
 
+  // Anthropic API 직접 호출 (브라우저)
+  const ANTHROPIC_API_KEY = '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';
+
+  const content=[
+    {type:'text',text:`당신은 K-뷰티 안면 구조 분석 전문 AI입니다.
+업로드된 사진을 분석하여 아래 JSON 형식으로만 응답하세요. JSON 외 다른 텍스트는 절대 포함하지 마세요.
+
+환자 정보: 성별=${gender}, 나이=${age}, 주요관심=${selectedConcern}
+
+분석 후 아래 JSON 구조로만 응답:
+{
+  "m1": "대표지수 (예: 82점)",
+  "m2": "보정편차 (예: +2mm)",
+  "m3": "입체감 (예: -11%)",
+  "sum": "전체 요약 2-3문장",
+  "analysis_mode": "claude_vision",
+  "notice": "미용 지표 기반 참고 분석이며 의학적 진단이 아닙니다.",
+  "index_scores": [
+    {"code":"FHI","name":"안면 조화도 지수","value":82,"description":"좌우 대칭성과 황금비율 기반 조화도","target":"80-90점","basis":"황금비율 기준"},
+    {"code":"SCI","name":"구조 교정 지수","value":68,"description":"현재 구조 대비 교정 필요도","target":"60-70점","basis":"표준 계측 기준"},
+    {"code":"SRNI","name":"구조 재건 필요도","value":45,"description":"종합 재건 필요 정도","target":"40-50점","basis":"임상 데이터"}
+  ],
+  "detail_items": [
+    {"title":"코 구조","score":"74점","copy":"비순각 및 코끝 프로파일 분석 결과","tags":["비순각","코끝높이"]},
+    {"title":"눈 비율","score":"81점","copy":"눈 간격 및 좌우 대칭성 분석 결과","tags":["눈간격","대칭성"]},
+    {"title":"윤곽 라인","score":"69점","copy":"하악각 및 E-line 분석 결과","tags":["E-line","하악각"]}
+  ],
+  "recommended_items": [
+    {"priority":"1순위","name":"${selectedConcern} 개선","detail":"구조 분석 기반 맞춤 시술 방향","reason":"지수 분석 결과 우선 개선 권장"},
+    {"priority":"2순위","name":"대칭성 보정","detail":"좌우 균형 개선","reason":"FHI 지수 향상 효과"}
+  ],
+  "heatmap": [
+    {"l":"코","v":3},{"l":"눈","v":5},{"l":"턱","v":4},{"l":"이마","v":2},{"l":"입술","v":3}
+  ],
+  "hospitals": [
+    {"name":"K-뷰티 전문 클리닉","meta":"서울 강남 · 성형외과","tags":["코성형","눈성형"],"match":"87%"},
+    {"name":"안면 윤곽 전문센터","meta":"서울 압구정 · 성형외과","tags":["윤곽","리프팅"],"match":"82%"}
+  ],
+  "prices": [
+    {"name":"${selectedConcern} 기본 시술","value":"150만원~","note":"구조 분석 기반 예상 범위"},
+    {"name":"종합 패키지","value":"380만원~","note":"복합 개선 패키지 기준"}
+  ],
+  "estimate_total": "150만원~",
+  "eline": "+2mm",
+  "expert_logic": [
+    {"title":"황금비율 분석","copy":"얼굴 3분할 비율과 황금비율(1.618) 기준으로 구조적 조화도를 산출합니다.","standard":"황금비율 기준"},
+    {"title":"E-line 측정","copy":"측면 사진에서 코끝과 턱끝을 연결하는 E-line 기준으로 입술 돌출도를 분석합니다.","standard":"Ricketts 기준"}
+  ],
+  "measurement_set": ["좌우 대칭성","황금비율","비순각","E-line","하악각","눈간격","얼굴 3분할"],
+  "constraint_checks": [
+    {"title":"구조 안전성 검토","copy":"시술 가능 범위 내 개선 방향만 제시합니다."},
+    {"title":"의료법 준수","copy":"분석 결과는 참고용이며 최종 진단은 전문의 상담을 통해 이루어집니다."}
+  ],
+  "technical_summary": "MediaPipe 및 Claude Vision 기반 안면 랜드마크를 추출하고, 황금분할, 비순각, E-line, 하악각 대칭성 등 미용 계측 지표를 한국인 표준 인체치수 데이터와 비교하여 구조적 개선 방향을 산출합니다.",
+  "medical_notice": "분석 결과는 의료 진단이 아닌 미용 지표 기반 참고 분석이며, 최종 시술 가능성은 의료진 상담을 통해 검증됩니다."
+}`},
+    {type:'image',source:{type:'base64',media_type:'image/jpeg',data:frontB64}}
+  ];
+  if(sideB64) content.push({type:'image',source:{type:'base64',media_type:'image/jpeg',data:sideB64}});
+
   try{
-    const res=await fetch('/api/analyze',{method:'POST',body:fd});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':ANTHROPIC_API_KEY,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:2000,
+        messages:[{role:'user',content}]
+      })
+    });
     clearTimeout(stepTimer); clearTimeout(stepTimer2); clearTimeout(stepTimer3);
-    if(!res.ok)throw new Error('분석 실패');
-    aiData=await res.json();
+    if(!res.ok)throw new Error('API 오류: '+res.status);
+    const data=await res.json();
+    const text=data.content[0].text.trim();
+    const jsonStr=text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    aiData=JSON.parse(jsonStr);
     setLoadingStep(6, '분석 완료! 리포트로 이동합니다.');
     setTimeout(()=>go('report'),800);
   }catch(e){
     clearTimeout(stepTimer); clearTimeout(stepTimer2); clearTimeout(stepTimer3);
-    alert('분석 오류: 서버가 실행 중인지 확인해주세요.');
+    console.error(e);
+    alert('분석 오류: API 키를 확인해주세요.\n\n오류: '+e.message);
     go('upload');
   }
 }
-const BA_T={"price":"9,900\uc6d0","aiAfter":"AI \uc560\ud504\ud130 \ubbf8\ub9ac\ubcf4\uae30","frontBeforeEyebrow":"FRONT \u00b7 BEFORE","frontBeforeTitle":"\uc815\uba74 \ud604\uc7ac \uad6c\uc870 \ubd84\uc11d","frontBeforeCopy":"\uc88c\uc6b0 \ub300\uce6d\uc131, \ub208-\ucf54-\uc785 \uc911\uc2ec\uc120, \ud558\uc548\ubd80 \ube44\uc728\uc744 \uae30\uc900\uc73c\ub85c \ud604\uc7ac \uc5bc\uad74\uc120\uc744 \ud45c\uc2dc\ud588\uc2b5\ub2c8\ub2e4.","frontBeforePill1":"\ub208 \uc0ac\uc774 \uac70\ub9ac 32mm","frontBeforePill2":"\ub300\uce6d\uc131 86%","frontBeforePill3":"\ud669\uae08\ube44\uc728 78\uc810","frontAfterEyebrow":"FRONT \u00b7 AFTER","frontAfterTitle":"\uc815\uba74 \uac1c\uc120 \ubaa9\ud45c \uc2dc\ubbac\ub808\uc774\uc158","frontAfterCopy":"\uc88c\uc6b0 \ub300\uce6d\uc131\uacfc \ucf54-\uc785-\ud131 \uc911\uc2ec\uc120\uc744 \uae30\uc900\uc73c\ub85c \uac1c\uc120 \ud6c4 \ubaa9\ud45c \ube44\uc728\uc744 \ube14\ub7ec \uc601\uc5ed\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","frontAfterPill1":"\ubaa9\ud45c \ub300\uce6d\uc131 92%","frontAfterPill2":"\uc911\uc2ec\uc120 \ubcf4\uc815","frontAfterPill3":"\ube44\uc728 \uc548\uc815\ud654","sideBeforeEyebrow":"SIDE \u00b7 BEFORE","sideBeforeTitle":"\uce21\uba74 E-line \ubc0f \uac01\ub3c4 \ubd84\uc11d","sideBeforeCopy":"\uce21\uba74 \uc5bc\uad74\uc5d0\uc11c E-line \uae30\uc900\uc120, \ube44\uc21c\uac01, \ucf67\ub300/\ucf54\ub05d \ub192\uc774, \uc785\uc220 \ub3cc\ucd9c\ub3c4\ub97c \uac19\uc774 \ud45c\uc2dc\ud588\uc2b5\ub2c8\ub2e4.","sidePanelTitle":"\uc8fc\uc694 \ucd94\uc9c4 \ubb38\uc81c\uc810 \uad6c\uc870","side01Title":"\ucf54\ub05d \uac01\ub3c4 (\ube44\uc21c\uac01)","side01Copy":"\uc57d 90\u00b0 \ubc94\uc704\ub85c \ubd84\ub958\ub418\uba70, \ucf54\ub05d \ud504\ub85c\ud30c\uc77c \uac1c\uc120 \ud544\uc694\uac00 \ud45c\uc2dc\ub429\ub2c8\ub2e4.","side02Title":"\ucf67\ub4f1 \uac01\ub3c4/\ub77c\uc778","side02Copy":"\uc57d 36\u00b0 \uae30\uc900\uc73c\ub85c \ubcf4\uba74 \ucf67\ub4f1 \ub77c\uc778\uacfc \ucf54\ub05d \uc5f0\uacb0\uc131 \uac1c\uc120\uc774 \ud544\uc694\ud569\ub2c8\ub2e4.","side03Title":"\ud558\uc548\ubd80 \uc785\uccb4\uac10","side03Copy":"E-line \ud3b8\ucc28: \uc717\uc785\uc220 +3mm, \uc548\uac01\uc785\uc220 +1mm, \ud131\ub05d -2mm\ub85c \ubd84\uc11d\ub429\ub2c8\ub2e4.","sideResultTitle":"AI \ubd84\uc11d \uacb0\uacfc","sideResultCopy":"\ube44\uc21c\uac01 \ubc0f \ucf67\ub4f1 \ub77c\uc778, \ubcf5\uba74 \ud504\ub85c\ud30c\uc77c, \uc785\uccb4\uac10 \ubcf4\uc644\uc744 \uc6b0\uc120 \ucd94\uc9c4 \ud56d\ubaa9\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","sideAfterEyebrow":"SIDE \u00b7 AFTER","sideAfterTitle":"\uce21\uba74 \uac1c\uc120 \ubaa9\ud45c \uc2dc\ubbac\ub808\uc774\uc158","sideAfterCopy":"\uc624\ub978\ucabd \uc560\ud504\ud130 \uc0ac\uc9c4\uc740 \ub354\ubbf8 \uc601\uc5ed\uc73c\ub85c \ub450\uace0, \ucd94\ud6c4 \uc81c\uacf5\ud558\uc2e4 \uc0ac\uc9c4\uc73c\ub85c \uad50\uccb4\ud558\ub3c4\ub85d \uad6c\uc870\ub97c \ub9cc\ub4e4\uc5c8\uc2b5\ub2c8\ub2e4.","sideAfterPill1":"E-line \ubaa9\ud45c 0mm","sideAfterPill2":"\ube44\uc21c\uac01 \ubcf4\uc815","sideAfterPill3":"\ud131\ub05d \uc815\ub82c","analysisReady":"FHI, II, \u0394FI \uc9c0\ud45c\ub97c \uc900\ube44 \uc911\uc785\ub2c8\ub2e4.","summaryFallback":"\uc120\ud0dd \ubd80\uc704\uc758 \ubbf8\uc6a9 \uc9c0\ud45c \uae30\ubc18 \ubd84\uc11d \uacb0\uacfc\uc785\ub2c8\ub2e4.","modeFallback":"\ubbf8\uc6a9 \uc9c0\ud45c \uae30\ubc18 \ucc38\uace0 \ubd84\uc11d\uc774\uba70 \uc758\ud559\uc801 \uc9c4\ub2e8\uc774 \uc544\ub2d9\ub2c8\ub2e4.","matchRate":"\ub9e4\uce6d\ub960","recommended":"\ucd94\ucc9c","symmetry":"\ub300\uce6d\uc131","metricRepresentative":"\ub300\ud45c \uc9c0\ud45c","metricCorrection":"\ubcf4\uc815 \ud3b8\ucc28","metricVolume":"\uc785\uccb4\uac10","basis":"\uc9c0\ud45c \uae30\ubc18","scoreRange":"0-100\uc810","frontDefaultScore":"82\uc810","frontDefaultAngle":"91\u00b0","defaultEline":"+3mm","defaultTotal":"980,000\uc6d0","analysisMode":"\ubd84\uc11d \ubc29\uc2dd: "};
+const BA_T={"price":"$3","aiAfter":"AI \uc560\ud504\ud130 \ubbf8\ub9ac\ubcf4\uae30","frontBeforeEyebrow":"FRONT \u00b7 BEFORE","frontBeforeTitle":"\uc815\uba74 \ud604\uc7ac \uad6c\uc870 \ubd84\uc11d","frontBeforeCopy":"\uc88c\uc6b0 \ub300\uce6d\uc131, \ub208-\ucf54-\uc785 \uc911\uc2ec\uc120, \ud558\uc548\ubd80 \ube44\uc728\uc744 \uae30\uc900\uc73c\ub85c \ud604\uc7ac \uc5bc\uad74\uc120\uc744 \ud45c\uc2dc\ud588\uc2b5\ub2c8\ub2e4.","frontBeforePill1":"\ub208 \uc0ac\uc774 \uac70\ub9ac 32mm","frontBeforePill2":"\ub300\uce6d\uc131 86%","frontBeforePill3":"\ud669\uae08\ube44\uc728 78\uc810","frontAfterEyebrow":"FRONT \u00b7 AFTER","frontAfterTitle":"\uc815\uba74 \uac1c\uc120 \ubaa9\ud45c \uc2dc\ubbac\ub808\uc774\uc158","frontAfterCopy":"\uc88c\uc6b0 \ub300\uce6d\uc131\uacfc \ucf54-\uc785-\ud131 \uc911\uc2ec\uc120\uc744 \uae30\uc900\uc73c\ub85c \uac1c\uc120 \ud6c4 \ubaa9\ud45c \ube44\uc728\uc744 \ube14\ub7ec \uc601\uc5ed\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","frontAfterPill1":"\ubaa9\ud45c \ub300\uce6d\uc131 92%","frontAfterPill2":"\uc911\uc2ec\uc120 \ubcf4\uc815","frontAfterPill3":"\ube44\uc728 \uc548\uc815\ud654","sideBeforeEyebrow":"SIDE \u00b7 BEFORE","sideBeforeTitle":"\uce21\uba74 E-line \ubc0f \uac01\ub3c4 \ubd84\uc11d","sideBeforeCopy":"\uce21\uba74 \uc5bc\uad74\uc5d0\uc11c E-line \uae30\uc900\uc120, \ube44\uc21c\uac01, \ucf67\ub300/\ucf54\ub05d \ub192\uc774, \uc785\uc220 \ub3cc\ucd9c\ub3c4\ub97c \uac19\uc774 \ud45c\uc2dc\ud588\uc2b5\ub2c8\ub2e4.","sidePanelTitle":"\uc8fc\uc694 \ucd94\uc9c4 \ubb38\uc81c\uc810 \uad6c\uc870","side01Title":"\ucf54\ub05d \uac01\ub3c4 (\ube44\uc21c\uac01)","side01Copy":"\uc57d 90\u00b0 \ubc94\uc704\ub85c \ubd84\ub958\ub418\uba70, \ucf54\ub05d \ud504\ub85c\ud30c\uc77c \uac1c\uc120 \ud544\uc694\uac00 \ud45c\uc2dc\ub429\ub2c8\ub2e4.","side02Title":"\ucf67\ub4f1 \uac01\ub3c4/\ub77c\uc778","side02Copy":"\uc57d 36\u00b0 \uae30\uc900\uc73c\ub85c \ubcf4\uba74 \ucf67\ub4f1 \ub77c\uc778\uacfc \ucf54\ub05d \uc5f0\uacb0\uc131 \uac1c\uc120\uc774 \ud544\uc694\ud569\ub2c8\ub2e4.","side03Title":"\ud558\uc548\ubd80 \uc785\uccb4\uac10","side03Copy":"E-line \ud3b8\ucc28: \uc717\uc785\uc220 +3mm, \uc548\uac01\uc785\uc220 +1mm, \ud131\ub05d -2mm\ub85c \ubd84\uc11d\ub429\ub2c8\ub2e4.","sideResultTitle":"AI \ubd84\uc11d \uacb0\uacfc","sideResultCopy":"\ube44\uc21c\uac01 \ubc0f \ucf67\ub4f1 \ub77c\uc778, \ubcf5\uba74 \ud504\ub85c\ud30c\uc77c, \uc785\uccb4\uac10 \ubcf4\uc644\uc744 \uc6b0\uc120 \ucd94\uc9c4 \ud56d\ubaa9\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","sideAfterEyebrow":"SIDE \u00b7 AFTER","sideAfterTitle":"\uce21\uba74 \uac1c\uc120 \ubaa9\ud45c \uc2dc\ubbac\ub808\uc774\uc158","sideAfterCopy":"\uc624\ub978\ucabd \uc560\ud504\ud130 \uc0ac\uc9c4\uc740 \ub354\ubbf8 \uc601\uc5ed\uc73c\ub85c \ub450\uace0, \ucd94\ud6c4 \uc81c\uacf5\ud558\uc2e4 \uc0ac\uc9c4\uc73c\ub85c \uad50\uccb4\ud558\ub3c4\ub85d \uad6c\uc870\ub97c \ub9cc\ub4e4\uc5c8\uc2b5\ub2c8\ub2e4.","sideAfterPill1":"E-line \ubaa9\ud45c 0mm","sideAfterPill2":"\ube44\uc21c\uac01 \ubcf4\uc815","sideAfterPill3":"\ud131\ub05d \uc815\ub82c","analysisReady":"FHI, II, \u0394FI \uc9c0\ud45c\ub97c \uc900\ube44 \uc911\uc785\ub2c8\ub2e4.","summaryFallback":"\uc120\ud0dd \ubd80\uc704\uc758 \ubbf8\uc6a9 \uc9c0\ud45c \uae30\ubc18 \ubd84\uc11d \uacb0\uacfc\uc785\ub2c8\ub2e4.","modeFallback":"\ubbf8\uc6a9 \uc9c0\ud45c \uae30\ubc18 \ucc38\uace0 \ubd84\uc11d\uc774\uba70 \uc758\ud559\uc801 \uc9c4\ub2e8\uc774 \uc544\ub2d9\ub2c8\ub2e4.","matchRate":"\ub9e4\uce6d\ub960","recommended":"\ucd94\ucc9c","symmetry":"\ub300\uce6d\uc131","metricRepresentative":"\ub300\ud45c \uc9c0\ud45c","metricCorrection":"\ubcf4\uc815 \ud3b8\ucc28","metricVolume":"\uc785\uccb4\uac10","basis":"\uc9c0\ud45c \uae30\ubc18","scoreRange":"0-100\uc810","frontDefaultScore":"82\uc810","frontDefaultAngle":"91\u00b0","defaultEline":"+3mm","defaultTotal":"980,000\uc6d0","analysisMode":"\ubd84\uc11d \ubc29\uc2dd: "};
 
 function imgBox(kind,src,label){return beforeBox(kind,src,label);}
 function beforeBox(kind,src,label){const side=kind==='side';return '<div class="ba-photo '+kind+' before">'+(src?'<img src="'+src+'">':'<div class="dummy-face">BEFORE<br>IMAGE</div>')+overlay(kind,label)+'<div class="ba-label '+(side?'side-label':'')+'">'+(side?'SIDE &middot; BEFORE':'BEFORE (Current Analysis)')+'</div></div>';}
@@ -479,18 +584,24 @@ function submitLead(){const name=document.getElementById('leadName').value,phone
 <div id="payModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:flex-end;justify-content:center;" onclick="closePayModal(event)">
   <div style="background:#fff;border-radius:24px 24px 0 0;padding:28px 24px 40px;width:min(430px,100vw);box-shadow:0 -8px 40px rgba(0,0,0,.18);" onclick="event.stopPropagation()">
     <div style="width:40px;height:4px;background:#e0d5cc;border-radius:99px;margin:0 auto 20px;"></div>
-    <div style="font-size:11px;font-weight:900;letter-spacing:.14em;color:#b88a55;margin-bottom:8px;">AI AFTER 미리보기</div>
-    <div style="font-size:22px;font-weight:900;color:#221514;margin-bottom:6px;">성형 후 시뮬레이션</div>
-    <div style="font-size:13px;color:#7a615d;line-height:1.6;margin-bottom:20px;">AI가 분석한 개선 수치를 기반으로<br>성형 후 예상 모습을 보여드립니다.</div>
-    <div style="background:#fff8f4;border:1px solid #f2d5cc;border-radius:14px;padding:14px 16px;margin-bottom:20px;">
+    <div style="font-size:11px;font-weight:900;letter-spacing:.14em;color:#b88a55;margin-bottom:8px;">FULL REPORT</div>
+    <div style="font-size:22px;font-weight:900;color:#221514;margin-bottom:6px;">상세 분석 리포트 잠금 해제</div>
+    <div style="font-size:13px;color:#7a615d;line-height:1.6;margin-bottom:20px;">AI가 측정한 황금비율 수치, 부위별 상세 분석,<br>균형도 데이터를 전체 공개합니다.</div>
+    <div style="background:#fff8f4;border:1px solid #f2d5cc;border-radius:14px;padding:14px 16px;margin-bottom:12px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <span style="font-size:13px;font-weight:800;color:#221514;">AI After 전체 언락</span>
-        <span style="font-size:18px;font-weight:900;color:#ff6272;">9,900원</span>
+        <span style="font-size:13px;font-weight:800;color:#221514;">Full Detailed Report</span>
+        <span style="font-size:18px;font-weight:900;color:#ff6272;">$3</span>
       </div>
-      <div style="font-size:11px;color:#7a615d;">정면 + 측면 Before/After 블러 해제</div>
+      <div style="font-size:11px;color:#7a615d;">황금비율 수치 · 부위별 분석 · 균형도 · PDF 포함</div>
+    </div>
+    <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:16px;line-height:1.6;">
+      본 리포트는 AI 측정 참고용 데이터이며, 의료적 진단이 아닙니다.<br>Visa · Mastercard · 해외카드 결제 가능
     </div>
     <div style="display:grid;gap:8px;">
-      <button onclick="confirmPay()" style="border:0;border-radius:14px;background:linear-gradient(135deg,#ff6272,#ff8a5c);color:#fff;height:54px;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 12px 24px rgba(255,98,114,.28);">💳 9,900원 결제하기</button>
+      <a href="https://pay.airwallex.com/sghjsywtsdod" target="_blank" onclick="onPayClick()"
+        style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:14px;background:linear-gradient(135deg,#ff6272,#ff8a5c);color:#fff;height:54px;font-size:16px;font-weight:900;box-shadow:0 12px 24px rgba(255,98,114,.28);">
+        💳 $3 결제하기
+      </a>
       <button onclick="closePayModal()" style="border:1px solid #f2d5cc;border-radius:14px;background:#fff;color:#7a615d;height:44px;font-size:14px;font-weight:800;cursor:pointer;">취소</button>
     </div>
   </div>
@@ -506,34 +617,10 @@ function closePayModal(e){
     document.getElementById('payModal').style.display='none';
   }
 }
-function confirmPay(){
-  document.getElementById('payModal').style.display='none';
-  localStorage.setItem('vioa_paid','1');
-  unlockAfter();
-  // 리포트에 있으면 유지, 랜딩이면 리포트로
-  if(aiData) go('report');
+function checkHospitalPw(){var v=document.getElementById("hospitalPwInput").value;if(v==="1111"){document.getElementById("hospitalLockCover").style.display="none";document.getElementById("hospitals").style.filter="none";document.getElementById("hospitals").style.pointerEvents="auto";document.getElementById("hospitals").style.userSelect="auto";}else{document.getElementById("hospitalPwErr").style.display="block";document.getElementById("hospitalPwInput").value="";}}function onPayClick(){
+  // 결제 페이지로 이동 후 모달 닫기
+  setTimeout(function(){ document.getElementById('payModal').style.display='none'; }, 300);
 }
-function unlockAfter(){
-  // after 이미지 블러 제거
-  document.querySelectorAll('.ba-photo.after img').forEach(function(img){
-    img.style.filter='none';
-    img.style.transform='none';
-    img.style.opacity='1';
-  });
-  // after-price-big 숨기기
-  document.querySelectorAll('.after-price-big').forEach(function(el){
-    el.style.display='none';
-  });
-  // 랜딩 잠금 해제 표시
-  var locked=document.querySelector('.ba-preview-locked');
-  if(locked){
-    locked.style.background='linear-gradient(135deg,#ffe9e2,#fff3ef)';
-    var cover=locked.querySelector('.ba-preview-lock-cover');
-    if(cover) cover.innerHTML='<div style="font-size:28px">✨</div><div style="font-size:13px;font-weight:900;color:#ff6272;margin-top:4px;">결제 완료!</div><div style="font-size:11px;color:#7a615d;">After 미리보기 활성화</div>';
-  }
-}
-// 매 방문시 결제 상태 초기화 (데모: 결제 누를때만 언락)
-localStorage.removeItem('vioa_paid');
 </script>
 </body>
 </html>
