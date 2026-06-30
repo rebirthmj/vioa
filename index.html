@@ -144,6 +144,10 @@ body{
 .ov-dot,.side-dot{fill:#ffd0c6;stroke:#fff}.ov-percent,.ov-delta,.side-metric,.side-small{fill:#fff;text-shadow:0 1px 4px rgba(64,34,28,.44)}
 .side-gold{stroke:rgba(255,255,255,.85)}
 @media(max-width:430px){body{background:#fff3ef}.app{border-left:1px solid rgba(255,125,108,.20);border-right:1px solid rgba(255,125,108,.20)}}
+.constraint-step{grid-template-columns:34px minmax(0,1fr)}
+.constraint-step>div,.logic-card,.tech-summary,.tech-note,.index-card{min-width:0}
+.constraint-step b,.constraint-step p,.logic-card h3,.logic-card p,.tech-summary p,.tech-note{overflow-wrap:anywhere;word-break:keep-all}
+.constraint-step b{display:block;line-height:1.35}
 </style>
 <style id="vioa-v2-5-structure">
 /* ── 업로드 카드 ── */
@@ -282,7 +286,7 @@ body{
   </main>
 
   <main id="upload" class="screen">
-    <div class="eyebrow">STEP 1 / 3</div><div class="h1" style="font-size:24px">얼굴 사진 업로드</div><p class="copy">정면 사진은 필수, 측면 사진은 E-line과 비순각 정확도를 높입니다.</p>
+    <div class="eyebrow">STEP 1 / 3</div><div class="h1" style="font-size:24px">얼굴 사진 업로드</div><p class="copy">정면 사진은 필수, 측면 사진은 옆얼굴 리포트 품질을 높입니다.</p>
     <div class="upload-card" id="frontCard" onclick="document.getElementById('frontFile').click()">
       <input id="frontFile" type="file" accept="image/*" style="display:none" onchange="previewFile('front')">
       <div class="upload-card-left">
@@ -300,7 +304,7 @@ body{
         <div class="upload-icon-box upload-icon-box-optional"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#f2d5cc"/><path d="M17 9a5 5 0 1 1-6 4.9" stroke="#ff6272" stroke-width="1.5" stroke-linecap="round"/><path d="M9 20c0-2.76 2.24-5 5-5" stroke="#ff6272" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="18" r="4" fill="#fff"/><path d="M18 16v2l1 1" stroke="#ff6272" stroke-width="1.2" stroke-linecap="round"/></svg></div>
         <div>
           <div class="upload-card-title">측면 촬영 <span class="upload-opt">선택</span></div>
-          <div class="upload-card-sub" id="sideName">귀가 보이는 90° 측면<br>E-line 정확도 향상</div>
+          <div class="upload-card-sub" id="sideName">귀가 보이는 90° 측면<br>옆얼굴 분석 보완</div>
         </div>
       </div>
       <div class="upload-card-badge upload-card-add" id="sideBadge"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#f2d5cc"/><path d="M9 5v8M5 9h8" stroke="#ff6272" stroke-width="1.8" stroke-linecap="round"/></svg></div>
@@ -335,7 +339,7 @@ body{
   </div>
   <div class="steps" id="loadingSteps">
     <div class="step" id="lstep1">📸 사진 업로드 완료 <span class="done">✓</span></div>
-    <div class="step" id="lstep2">🔍 얼굴 랜드마크 추출 중 <span id="s2tag">진행중</span></div>
+    <div class="step" id="lstep2">🔍 얼굴 구조 확인 중 <span id="s2tag">진행중</span></div>
     <div class="step" id="lstep3">📐 비율 · 대칭 지표 계산 <span id="s3tag" style="color:#bbb">대기</span></div>
     <div class="step" id="lstep4">💡 시술 추천 매칭 <span id="s4tag" style="color:#bbb">대기</span></div>
     <div class="step" id="lstep5">📋 리포트 생성 <span id="s5tag" style="color:#bbb">대기</span></div>
@@ -345,17 +349,16 @@ body{
 
   <main id="report" class="screen">
     <div class="eyebrow">AI REPORT</div><div class="h1" style="font-size:24px">구조 분석 리포트</div><div class="report-head" id="metrics"></div>
-    <div class="section-title"><span class="badge">I</span>미적 지표 분석</div><div id="indexScores" class="card"></div><div class="section-title"><span class="badge">T</span>핵심 기술 로직</div><div id="techLogic" class="tech-logic card"></div><div class="section-title"><span class="badge">A</span>Before / After 비교</div><div id="photoRows"></div>
+    <div class="section-title"><span class="badge">I</span>미적 지표 분석</div><div id="indexScores" class="card"></div><div class="section-title"><span class="badge">A</span>Before / After 비교</div><div id="photoRows"></div>
     <div class="section-title"><span class="badge">B</span>상세 분석</div><div id="details"></div>
     <div class="section-title"><span class="badge">C</span>매칭 병원 리스트</div><div style="position:relative;border-radius:17px;overflow:hidden;min-height:160px;"><div id="hospitals" style="filter:blur(5px);pointer-events:none;user-select:none;"></div><div id="hospitalLockCover" style="position:absolute;inset:0;background:rgba(255,247,243,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:17px;border:1.5px dashed #f2d5cc;padding:28px 20px;text-align:center;"><div style="font-size:28px;">🏥</div><div style="font-size:15px;font-weight:900;color:#221514;">매칭 병원 리스트</div><div style="font-size:12px;color:#7a615d;line-height:1.6;">분석 결과에 맞는 전문 병원 리스트를<br>잠금 해제 후 확인하세요.</div><div style="font-size:18px;font-weight:900;color:#ff6272;margin:4px 0;">$2</div><div style="display:flex;gap:6px;width:100%;max-width:240px;"><input id="hospitalPwInput" type="password" placeholder="시연 코드 입력" style="flex:1;border:1.5px solid #f2d5cc;border-radius:10px;padding:0 12px;height:42px;font-size:14px;font-weight:700;outline:none;text-align:center;background:#fff;color:#221514;" onkeydown="if(event.key==='Enter')checkHospitalPw()"><button onclick="checkHospitalPw()" style="border:0;border-radius:10px;background:linear-gradient(135deg,#ff6272,#ff8a5c);color:#fff;height:42px;padding:0 14px;font-size:13px;font-weight:900;cursor:pointer;">확인</button></div><div id="hospitalPwErr" style="font-size:11px;color:#ff6272;display:none;">코드가 올바르지 않습니다</div><a href="https://pay.airwallex.com/sghjsz2vp9km" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;border-radius:12px;background:linear-gradient(135deg,#ff6272,#ff8a5c);color:#fff;height:46px;padding:0 24px;font-size:14px;font-weight:900;box-shadow:0 8px 20px rgba(255,98,114,.28);">🔓 $2 결제하기</a><div style="font-size:10px;color:#aaa;margin-top:2px;">협력 병원 준비 중 · Coming Soon</div></div></div>
     <div class="section-title"><span class="badge">D</span>추천 성형 항목</div><div id="recs"></div>
     <div class="section-title"><span class="badge">E</span>가격 리스트</div><div id="prices"></div><div class="total"><span>견적 총합</span><strong id="totalPrice">-</strong></div>
-    <div class="section-title"><span class="badge">F</span>종합 의견</div><div class="card"><p class="copy" id="summary"></p><p class="notice" id="mode"></p></div>
-    <div class="section-title"><span class="badge">G</span>AI 분석 수치</div><div id="heat" class="heat card"></div>
+    <div class="section-title"><span class="badge">F</span>종합 의견</div><div class="card"><p class="copy" id="summary"></p></div>
     <button class="btn" onclick="go('consult')">병원 상담 무료로 연결 →</button>
   </main>
 
-  <main id="consult" class="screen"><div class="eyebrow">STEP 3 / 3</div><div class="h1" style="font-size:24px">전문가 상담 연결</div><div class="card"><b>병원 상담 연결</b><p class="copy">분석 리포트를 병원 상담에 전달합니다.</p><div class="pill-row"><span class="pill">무료</span><span class="pill">리포트 자동 전달</span></div></div><div class="card"><b>의사 상담</b><p class="copy">전문의가 분석 리포트를 보고 코/눈/윤곽/입술 방향을 설명합니다.</p><div class="pill-row"><span class="pill">25,000원</span><span class="pill">전문가 온라인 상담</span></div></div><input id="leadName" class="card" style="width:100%;font:inherit" placeholder="이름"><input id="leadPhone" class="card" style="width:100%;font:inherit" placeholder="연락처"><button class="btn" onclick="submitLead()">상담 신청</button><p id="leadDone" class="notice hidden">상담 요청이 저장되었습니다.</p></main>
+  <main id="consult" class="screen"><div class="eyebrow">STEP 3 / 3</div><div class="h1" style="font-size:24px">전문가 상담 연결</div><div class="card"><b>병원 상담 연결</b><p class="copy">분석 리포트를 병원 상담에 전달합니다.</p><div class="pill-row"><span class="pill">무료</span><span class="pill">리포트 자동 전달</span></div></div><div class="card"><b>전문가 상담</b><p class="copy">전문 의료진이 리포트를 보고 코/눈/윤곽/입술 방향을 설명합니다.</p><div class="pill-row"><span class="pill">25,000원</span><span class="pill">전문가 온라인 상담</span></div></div><input id="leadName" class="card" style="width:100%;font:inherit" placeholder="이름"><input id="leadPhone" class="card" style="width:100%;font:inherit" placeholder="연락처"><button class="btn" onclick="submitLead()">상담 신청</button><p id="leadDone" class="notice hidden">상담 요청이 저장되었습니다.</p></main>
 
   <main id="admin" class="screen"><div class="eyebrow">VIOA ADMIN</div><div class="h1" style="font-size:25px">관리자 대시보드</div><div class="admin-grid"><div class="admin-box"><span>현재 사용자</span><b>1,284</b></div><div class="admin-box"><span>오늘 분석 요청</span><b>47</b></div><div class="admin-box"><span>오늘 SaaS 총계</span><b>550만원</b></div><div class="admin-box"><span>어제 총계</span><b>650만원</b></div></div><div class="section-title"><span class="badge">1</span>나라별 요청</div><div class="card"><p>한국 31건</p><div class="bar"><i style="width:72%"></i></div><p>일본 9건</p><div class="bar"><i style="width:34%"></i></div><p>미국 4건</p><div class="bar"><i style="width:20%"></i></div></div><div class="section-title"><span class="badge">2</span>AI분석후 수술결정 현황</div><div class="card"><div style="display:flex;justify-content:space-between"><b>총 321명</b><b>전환율 42% 향상</b></div><p>A병원 3명</p><div class="bar"><i style="width:30%"></i></div><p>B병원 4명</p><div class="bar"><i style="width:42%"></i></div><p>C클리닉 7명</p><div class="bar"><i style="width:70%"></i></div><p>D라인 5명</p><div class="bar"><i style="width:54%"></i></div></div><div class="section-title"><span class="badge">3</span>상담 현황</div><div class="card"><div class="detail-top"><b>USER : ANGEL99</b><span class="score">코상담</span></div><div class="detail-top"><b>USER : 미미123</b><span class="score">윤곽상담</span></div><div class="detail-top"><b>USER : 코코1004</b><span class="score">눈상담</span></div></div></main>
 
@@ -469,8 +472,10 @@ async function startAnalysis(){
   // Anthropic API 호출은 Vercel 서버 함수에서 처리합니다.
 
   const content=[
-    {type:'text',text:`당신은 K-뷰티 안면 구조 분석 전문 AI입니다.
-업로드된 사진을 분석하여 아래 JSON 형식으로만 응답하세요. JSON 외 다른 텍스트는 절대 포함하지 마세요.
+    {type:'text',text:`당신은 K-뷰티 프리미엄 리포트 작성 AI입니다.
+업로드된 사진을 참고하여 고객 친화적인 리포트를 아래 JSON 형식으로만 응답하세요. JSON 외 다른 텍스트는 절대 포함하지 마세요.
+내부 제작 방식이나 시스템 관련 표현은 절대 노출하지 마세요.
+표현은 전문적이되 고객이 이해하기 쉬운 미용 리포트 문장으로 작성하세요.
 
 환자 정보: 성별=${gender}, 나이=${age}, 주요관심=${selectedConcern}
 
@@ -480,46 +485,31 @@ async function startAnalysis(){
   "m2": "보정편차 (예: +2mm)",
   "m3": "입체감 (예: -11%)",
   "sum": "전체 요약 2-3문장",
-  "analysis_mode": "claude_vision",
   "notice": "미용 지표 기반 참고 분석이며 의학적 진단이 아닙니다.",
   "index_scores": [
-    {"code":"FHI","name":"안면 조화도 지수","value":82,"description":"좌우 대칭성과 황금비율 기반 조화도","target":"80-90점","basis":"황금비율 기준"},
-    {"code":"SCI","name":"구조 교정 지수","value":68,"description":"현재 구조 대비 교정 필요도","target":"60-70점","basis":"표준 계측 기준"},
-    {"code":"SRNI","name":"구조 재건 필요도","value":45,"description":"종합 재건 필요 정도","target":"40-50점","basis":"임상 데이터"}
+    {"code":"FHI","name":"안면 조화도 지수","value":82,"description":"좌우 균형감과 전체 인상의 조화도"},
+    {"code":"SCI","name":"구조 개선 지수","value":68,"description":"현재 인상에서 개선 여지가 보이는 정도"},
+    {"code":"SRNI","name":"입체감 보완 지수","value":45,"description":"전체적인 입체감 보완 필요 정도"}
   ],
   "detail_items": [
-    {"title":"코 구조","score":"74점","copy":"비순각 및 코끝 프로파일 분석 결과","tags":["비순각","코끝높이"]},
-    {"title":"눈 비율","score":"81점","copy":"눈 간격 및 좌우 대칭성 분석 결과","tags":["눈간격","대칭성"]},
-    {"title":"윤곽 라인","score":"69점","copy":"하악각 및 E-line 분석 결과","tags":["E-line","하악각"]}
+    {"title":"코 라인","score":"74점","copy":"측면 인상과 코끝 라인의 균형을 중심으로 본 결과","tags":["코끝 라인","입체감"]},
+    {"title":"눈매 균형","score":"81점","copy":"눈매의 좌우 균형과 전체 인상 조화를 중심으로 본 결과","tags":["눈매 균형","대칭성"]},
+    {"title":"윤곽 라인","score":"69점","copy":"턱선과 옆얼굴 라인의 안정감을 중심으로 본 결과","tags":["턱선","옆얼굴"]}
   ],
   "recommended_items": [
-    {"priority":"1순위","name":"${selectedConcern} 개선","detail":"구조 분석 기반 맞춤 시술 방향","reason":"지수 분석 결과 우선 개선 권장"},
+    {"priority":"1순위","name":"${selectedConcern} 개선","detail":"현재 인상에 맞춘 개선 방향","reason":"전체 리포트 결과 우선 개선 권장"},
     {"priority":"2순위","name":"대칭성 보정","detail":"좌우 균형 개선","reason":"FHI 지수 향상 효과"}
-  ],
-  "heatmap": [
-    {"l":"코","v":3},{"l":"눈","v":5},{"l":"턱","v":4},{"l":"이마","v":2},{"l":"입술","v":3}
   ],
   "hospitals": [
     {"name":"K-뷰티 전문 클리닉","meta":"서울 강남 · 성형외과","tags":["코성형","눈성형"],"match":"87%"},
     {"name":"안면 윤곽 전문센터","meta":"서울 압구정 · 성형외과","tags":["윤곽","리프팅"],"match":"82%"}
   ],
   "prices": [
-    {"name":"${selectedConcern} 기본 시술","value":"150만원~","note":"구조 분석 기반 예상 범위"},
+    {"name":"${selectedConcern} 기본 시술","value":"150만원~","note":"리포트 기반 예상 범위"},
     {"name":"종합 패키지","value":"380만원~","note":"복합 개선 패키지 기준"}
   ],
   "estimate_total": "150만원~",
-  "eline": "+2mm",
-  "expert_logic": [
-    {"title":"황금비율 분석","copy":"얼굴 3분할 비율과 황금비율(1.618) 기준으로 구조적 조화도를 산출합니다.","standard":"황금비율 기준"},
-    {"title":"E-line 측정","copy":"측면 사진에서 코끝과 턱끝을 연결하는 E-line 기준으로 입술 돌출도를 분석합니다.","standard":"Ricketts 기준"}
-  ],
-  "measurement_set": ["좌우 대칭성","황금비율","비순각","E-line","하악각","눈간격","얼굴 3분할"],
-  "constraint_checks": [
-    {"title":"구조 안전성 검토","copy":"시술 가능 범위 내 개선 방향만 제시합니다."},
-    {"title":"의료법 준수","copy":"분석 결과는 참고용이며 최종 진단은 전문의 상담을 통해 이루어집니다."}
-  ],
-  "technical_summary": "MediaPipe 및 Claude Vision 기반 안면 랜드마크를 추출하고, 황금분할, 비순각, E-line, 하악각 대칭성 등 미용 계측 지표를 한국인 표준 인체치수 데이터와 비교하여 구조적 개선 방향을 산출합니다.",
-  "medical_notice": "분석 결과는 의료 진단이 아닌 미용 지표 기반 참고 분석이며, 최종 시술 가능성은 의료진 상담을 통해 검증됩니다."
+  "eline": "+2mm"
 }`},
     {type:'image',source:{type:'base64',media_type:'image/jpeg',data:frontB64}}
   ];
@@ -532,7 +522,6 @@ async function startAnalysis(){
         'Content-Type':'application/json',
       },
       body:JSON.stringify({
-        model:'claude-sonnet-4-6',
         max_tokens:8000,
         messages:[{role:'user',content}]
       })
@@ -557,6 +546,27 @@ async function startAnalysis(){
 }
 const BA_T={"price":"$3","aiAfter":"AI \uc560\ud504\ud130 \ubbf8\ub9ac\ubcf4\uae30","frontBeforeEyebrow":"FRONT \u00b7 BEFORE","frontBeforeTitle":"\uc815\uba74 \ud604\uc7ac \uad6c\uc870 \ubd84\uc11d","frontBeforeCopy":"\uc88c\uc6b0 \ub300\uce6d\uc131, \ub208-\ucf54-\uc785 \uc911\uc2ec\uc120, \ud558\uc548\ubd80 \ube44\uc728\uc744 \uae30\uc900\uc73c\ub85c \ud604\uc7ac \uc5bc\uad74\uc120\uc744 \ud45c\uc2dc\ud588\uc2b5\ub2c8\ub2e4.","frontBeforePill2":"\ub300\uce6d\uc131 86%","frontBeforePill3":"\ud669\uae08\ube44\uc728 78\uc810","frontAfterEyebrow":"FRONT \u00b7 AFTER","frontAfterTitle":"\uc815\uba74 \uac1c\uc120 \ubaa9\ud45c \uc2dc\ubbac\ub808\uc774\uc158","frontAfterCopy":"\uc88c\uc6b0 \ub300\uce6d\uc131\uacfc \ucf54-\uc785-\ud131 \uc911\uc2ec\uc120\uc744 \uae30\uc900\uc73c\ub85c \uac1c\uc120 \ud6c4 \ubaa9\ud45c \ube44\uc728\uc744 \ube14\ub7ec \uc601\uc5ed\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","frontAfterPill1":"\ubaa9\ud45c \ub300\uce6d\uc131 92%","frontAfterPill2":"\uc911\uc2ec\uc120 \ubcf4\uc815","frontAfterPill3":"\ube44\uc728 \uc548\uc815\ud654","sideBeforeEyebrow":"SIDE \u00b7 BEFORE","sideBeforeTitle":"\uce21\uba74 E-line \ubc0f \uac01\ub3c4 \ubd84\uc11d","sideBeforeCopy":"\uce21\uba74 \uc5bc\uad74\uc5d0\uc11c E-line \uae30\uc900\uc120, \ube44\uc21c\uac01, \ucf67\ub300/\ucf54\ub05d \ub192\uc774, \uc785\uc220 \ub3cc\ucd9c\ub3c4\ub97c \uac19\uc774 \ud45c\uc2dc\ud588\uc2b5\ub2c8\ub2e4.","sidePanelTitle":"\uc8fc\uc694 \ucd94\uc9c4 \ubb38\uc81c\uc810 \uad6c\uc870","side01Title":"\ucf54\ub05d \uac01\ub3c4 (\ube44\uc21c\uac01)","side01Copy":"\uc57d 90\u00b0 \ubc94\uc704\ub85c \ubd84\ub958\ub418\uba70, \ucf54\ub05d \ud504\ub85c\ud30c\uc77c \uac1c\uc120 \ud544\uc694\uac00 \ud45c\uc2dc\ub429\ub2c8\ub2e4.","side02Title":"\ucf67\ub4f1 \uac01\ub3c4/\ub77c\uc778","side02Copy":"\uc57d 36\u00b0 \uae30\uc900\uc73c\ub85c \ubcf4\uba74 \ucf67\ub4f1 \ub77c\uc778\uacfc \ucf54\ub05d \uc5f0\uacb0\uc131 \uac1c\uc120\uc774 \ud544\uc694\ud569\ub2c8\ub2e4.","side03Title":"\ud558\uc548\ubd80 \uc785\uccb4\uac10","side03Copy":"E-line \ud3b8\ucc28: \uc717\uc785\uc220 +3mm, \uc548\uac01\uc785\uc220 +1mm, \ud131\ub05d -2mm\ub85c \ubd84\uc11d\ub429\ub2c8\ub2e4.","sideResultTitle":"AI \ubd84\uc11d \uacb0\uacfc","sideResultCopy":"\ube44\uc21c\uac01 \ubc0f \ucf67\ub4f1 \ub77c\uc778, \ubcf5\uba74 \ud504\ub85c\ud30c\uc77c, \uc785\uccb4\uac10 \ubcf4\uc644\uc744 \uc6b0\uc120 \ucd94\uc9c4 \ud56d\ubaa9\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","sideAfterEyebrow":"SIDE \u00b7 AFTER","sideAfterTitle":"\uce21\uba74 \uac1c\uc120 \ubaa9\ud45c \uc2dc\ubbac\ub808\uc774\uc158","sideAfterCopy":"\uce21\uba74 \uac1c\uc120 \ubaa9\ud45c\ub97c \uc2dc\ubbac\ub808\uc774\uc158\uc73c\ub85c \ud45c\uc2dc\ud569\ub2c8\ub2e4.","sideAfterPill1":"E-line \ubaa9\ud45c 0mm","sideAfterPill2":"\ube44\uc21c\uac01 \ubcf4\uc815","sideAfterPill3":"\ud131\ub05d \uc815\ub82c","analysisReady":"FHI, II, \u0394FI \uc9c0\ud45c\ub97c \uc900\ube44 \uc911\uc785\ub2c8\ub2e4.","summaryFallback":"\uc120\ud0dd \ubd80\uc704\uc758 \ubbf8\uc6a9 \uc9c0\ud45c \uae30\ubc18 \ubd84\uc11d \uacb0\uacfc\uc785\ub2c8\ub2e4.","modeFallback":"\ubbf8\uc6a9 \uc9c0\ud45c \uae30\ubc18 \ucc38\uace0 \ubd84\uc11d\uc774\uba70 \uc758\ud559\uc801 \uc9c4\ub2e8\uc774 \uc544\ub2d9\ub2c8\ub2e4.","matchRate":"\ub9e4\uce6d\ub960","recommended":"\ucd94\ucc9c","symmetry":"\ub300\uce6d\uc131","metricRepresentative":"\ub300\ud45c \uc9c0\ud45c","metricCorrection":"\ubcf4\uc815 \ud3b8\ucc28","metricVolume":"\uc785\uccb4\uac10","basis":"\uc9c0\ud45c \uae30\ubc18","scoreRange":"0-100\uc810","frontDefaultScore":"82\uc810","frontDefaultAngle":"91\u00b0","defaultEline":"+3mm","defaultTotal":"980,000\uc6d0","analysisMode":"\ubd84\uc11d \ubc29\uc2dd: "};
 
+Object.assign(BA_T,{
+  frontBeforeTitle:"정면 현재 인상 분석",
+  frontBeforeCopy:"좌우 균형감, 중심선, 하안부 비율을 기준으로 현재 얼굴선을 표시했습니다.",
+  frontBeforePill3:"조화도 78점",
+  frontAfterCopy:"좌우 균형감과 얼굴 중심선을 기준으로 개선 후 목표 인상을 블러 영역으로 표시합니다.",
+  sideBeforeTitle:"측면 현재 인상 분석",
+  sideBeforeCopy:"측면 얼굴에서 코끝 라인, 입술 돌출감, 턱끝 균형을 함께 표시했습니다.",
+  side01Title:"코끝 라인",
+  side01Copy:"코끝 라인의 방향성과 옆얼굴 인상 개선 필요가 표시됩니다.",
+  side02Title:"콧등 라인",
+  side02Copy:"콧등 라인과 코끝 연결성의 개선 포인트를 확인합니다.",
+  side03Copy:"윗입술, 아랫입술, 턱끝의 균형을 기준으로 입체감 보완 방향을 표시합니다.",
+  sideResultCopy:"코끝 라인, 옆얼굴 프로필, 입체감 보완을 우선 추진 항목으로 표시합니다.",
+  sideAfterPill1:"옆라인 목표",
+  sideAfterPill2:"코끝 보정",
+  analysisReady:"미적 지표를 준비 중입니다.",
+  summaryFallback:"선택 부위의 미용 참고 분석 결과입니다.",
+  modeFallback:"미용 참고 분석이며 의학적 진단이 아닙니다.",
+  basis:"참고 기준",
+  analysisMode:""
+});
 function imgBox(kind,src,label){return beforeBox(kind,src,label);}
 function beforeBox(kind,src,label){const side=kind==='side';return '<div class="ba-photo '+kind+' before">'+(src?'<img src="'+src+'">':'<div class="dummy-face">BEFORE<br>IMAGE</div>')+overlay(kind,label)+'<div class="ba-label '+(side?'side-label':'')+'">'+(side?'SIDE &middot; BEFORE':'BEFORE (Current Analysis)')+'</div></div>';}
 function afterBox(kind,src,label){const side=kind==='side';return '<div class="ba-photo '+kind+' after">'+(src?'<img src="'+src+'">':'<div class="dummy-face">AFTER<br>SIMULATION</div>')+overlay(side?'sideAfter':'after',label)+'<div class="ba-label '+(side?'side-label':'')+'">'+(side?'SIDE &middot; AFTER':'AFTER (Dummy Preview)')+'</div><div class="after-price-big" onclick="showPayModal()" style="cursor:pointer;">'+BA_T.price+'<span>'+BA_T.aiAfter+'</span></div></div>';}
@@ -570,11 +580,10 @@ function frontAfterCopy(D){return '<div class="ba-copy"><div class="eyebrow">'+B
 function sideProblemPanel(D){return '<div class="ba-copy side-panel"><h3>'+BA_T.sidePanelTitle+'</h3><div class="side-card"><b><span class="side-no">01</span>'+BA_T.side01Title+'</b><p>'+BA_T.side01Copy+'</p></div><div class="side-card"><b><span class="side-no">02</span>'+BA_T.side02Title+'</b><p>'+BA_T.side02Copy+'</p></div><div class="side-card"><b><span class="side-no">03</span>'+BA_T.side03Title+'</b><p>'+BA_T.side03Copy+'</p></div><div class="side-card"><b>\u2611 '+BA_T.sideResultTitle+'</b><p>'+BA_T.sideResultCopy+'</p></div></div>';}
 function sideAfterCopy(D){return '<div class="ba-copy"><div class="eyebrow">'+BA_T.sideAfterEyebrow+'</div><h3>'+BA_T.sideAfterTitle+'</h3><p>'+BA_T.sideAfterCopy+'</p>'+pillList([BA_T.sideAfterPill1,BA_T.sideAfterPill2,BA_T.sideAfterPill3])+'<div class="ba-point"><b>'+BA_T.price+'</b><span>'+BA_T.aiAfter+'</span></div></div>';}
 
+function cleanReportText(v){return String(v||'').replace(/의사/g,'의료진').replace(/전문의/g,'전문 의료진');}
 function clampPct(v){const n=parseFloat(String(v||'0').replace(/[^0-9.\-]/g,''));if(!isFinite(n))return 70;return Math.max(8,Math.min(100,n));}
-function renderIndexScores(D){const scores=D.index_scores||[];const fallback='<p class="copy">'+BA_T.analysisReady+'</p>';if(!scores.length)return fallback;return '<div class="index-grid">'+scores.map((s,i)=>{const pct=clampPct(s.value);return '<div class="index-card"><div class="index-head"><span class="index-code">'+s.code+'</span><span class="index-value">'+s.value+'</span></div><h3>'+s.name+'</h3><div class="index-meter"><span style="width:'+pct+'%"></span></div><p>'+s.description+'</p><div class="pill-row"><span class="pill">'+(s.target||BA_T.scoreRange)+'</span><span class="pill">'+(s.basis||BA_T.basis)+'</span></div></div>';}).join('')+'</div>';}
-function renderTechLogic(D){const mount=document.getElementById('techLogic');if(!mount)return;const logic=D.expert_logic||[];const measurements=D.measurement_set||[];const checks=D.constraint_checks||[];const summary=D.technical_summary||'VIOA는 MediaPipe 기반 안면 랜드마크를 추출하고, 황금분할, 비순각, E-line, 하악각 대칭성 등 미용 계측 지표를 한국인 표준 인체치수 데이터와 비교하여 구조적 개선 방향을 산출합니다.';const note=D.medical_notice||D.notice||'분석 결과는 의료 진단이 아닌 미용 지표 기반 참고 분석이며, 최종 시술 가능성은 의료진 상담을 통해 검증됩니다.';mount.innerHTML='<div class="tech-summary"><b>MediaPipe 랜드마크 기반 지표 분석</b><p>'+summary+'</p></div>'+(logic.length?'<div class="logic-grid">'+logic.map((x,i)=>'<div class="logic-card"><span class="logic-k">CORE '+String(i+1).padStart(2,'0')+'</span><h3>'+x.title+'</h3><p>'+x.copy+'</p><div class="pill-row"><span class="pill">'+x.standard+'</span></div></div>').join('')+'</div>':'')+(measurements.length?'<div class="metric-chip-grid">'+measurements.map(x=>'<span>'+x+'</span>').join('')+'</div>':'')+(checks.length?'<div class="constraint-flow">'+checks.map((x,i)=>'<div class="constraint-step"><span class="step-no">'+String(i+1).padStart(2,'0')+'</span><div><b>'+x.title+'</b><p>'+x.copy+'</p></div></div>').join('')+'</div>':'')+'<div class="tech-note">'+note+'</div>';}
-
-function renderReport(){const D=aiData||{};const metrics=D.metrics||[{label:BA_T.metricRepresentative,value:D.m1||BA_T.frontDefaultScore},{label:BA_T.metricCorrection,value:D.m2||'+2mm'},{label:BA_T.metricVolume,value:D.m3||'-11%'}];document.getElementById('metrics').innerHTML=metrics.map(m=>'<div class="metric"><div class="num">'+m.value+'</div><div class="lbl">'+m.label+'</div></div>').join('');const indexWrap=document.getElementById('indexScores');if(indexWrap){const scores=D.index_scores||[];indexWrap.innerHTML=renderIndexScores(D);}renderTechLogic(D);document.getElementById('photoRows').innerHTML='<div class="ba-row"><div class="ba-visual">'+beforeBox('front',frontUrl,D.m1)+frontBeforeCopy(D)+'</div></div><div class="ba-row"><div class="ba-visual">'+afterBox('front',frontUrl,D.m1)+frontAfterCopy(D)+'</div></div><div class="ba-row side-row"><div class="ba-visual">'+beforeBox('side',sideUrl||frontUrl,D.eline||BA_T.defaultEline)+sideProblemPanel(D)+'</div></div><div class="ba-row side-row"><div class="ba-visual">'+afterBox('side',sideUrl||frontUrl,D.eline||BA_T.defaultEline)+sideAfterCopy(D)+'</div></div>';document.getElementById('details').innerHTML=(D.detail_items||[]).map(x=>'<div class="detail-card"><div class="detail-top"><b>'+x.title+'</b><span class="score">'+x.score+'</span></div><p>'+x.copy+'</p><div class="pill-row">'+(x.tags||[]).map(t=>'<span class="pill">'+t+'</span>').join('')+'</div></div>').join('');const ramp=['#263238','#4c6672','#6f8d86','#9db77a','#d7b65d','#d98b3d','#c95050'];document.getElementById('heat').innerHTML=(D.heatmap||[]).map(h=>'<div class="heat-row"><span>'+h.l+'</span><div class="heat-cells">'+Array.from({length:10},(_,i)=>'<i style="background:'+ramp[Math.min(6,Math.max(0,Math.round((h.v+i/10)/2)))]+'"></i>').join('')+'</div></div>').join('');document.getElementById('recs').innerHTML=(D.recommended_items||[]).map(r=>'<div class="rec-item"><div class="priority">'+(r.priority||BA_T.recommended)+'</div><div><b>'+r.name+'</b><p>'+r.detail+'</p><p>'+r.reason+'</p></div></div>').join('');document.getElementById('hospitals').innerHTML=(D.hospitals||[]).map(h=>'<div class="hospital-card"><div><b>'+h.name+'</b><p>'+h.meta+'</p><div class="pill-row">'+(h.tags||[]).map(t=>'<span class="pill">'+t+'</span>').join('')+'</div></div><div class="match">'+h.match+'<br><small>'+BA_T.matchRate+'</small></div></div>').join('');document.getElementById('prices').innerHTML=(D.prices||[]).map(p=>'<div class="price-row"><div><b>'+p.name+'</b><p>'+p.note+'</p></div><b>'+p.value+'</b></div>').join('');document.getElementById('totalPrice').textContent=D.estimate_total||BA_T.defaultTotal;document.getElementById('summary').textContent=D.sum||BA_T.summaryFallback;document.getElementById('mode').textContent=BA_T.analysisMode+(D.analysis_mode||'demo_rules')+' \u00b7 '+(D.notice||BA_T.modeFallback);}
+function renderIndexScores(D){const scores=D.index_scores||[];const fallback='<p class="copy">'+BA_T.analysisReady+'</p>';if(!scores.length)return fallback;return '<div class="index-grid">'+scores.map(s=>{const pct=clampPct(s.value);return '<div class="index-card"><div class="index-head"><span class="index-code">'+cleanReportText(s.code)+'</span><span class="index-value">'+cleanReportText(s.value)+'</span></div><h3>'+cleanReportText(s.name)+'</h3><div class="index-meter"><span style="width:'+pct+'%"></span></div><p>'+cleanReportText(s.description)+'</p></div>';}).join('')+'</div>';}
+function renderReport(){const D=aiData||{};const metrics=D.metrics||[{label:BA_T.metricRepresentative,value:D.m1||BA_T.frontDefaultScore},{label:BA_T.metricCorrection,value:D.m2||'+2mm'},{label:BA_T.metricVolume,value:D.m3||'-11%'}];document.getElementById('metrics').innerHTML=metrics.map(m=>'<div class="metric"><div class="num">'+cleanReportText(m.value)+'</div><div class="lbl">'+cleanReportText(m.label)+'</div></div>').join('');const indexWrap=document.getElementById('indexScores');if(indexWrap)indexWrap.innerHTML=renderIndexScores(D);document.getElementById('photoRows').innerHTML='<div class="ba-row"><div class="ba-visual">'+beforeBox('front',frontUrl,D.m1)+frontBeforeCopy(D)+'</div></div><div class="ba-row"><div class="ba-visual">'+afterBox('front',frontUrl,D.m1)+frontAfterCopy(D)+'</div></div><div class="ba-row side-row"><div class="ba-visual">'+beforeBox('side',sideUrl||frontUrl,D.eline||BA_T.defaultEline)+sideProblemPanel(D)+'</div></div><div class="ba-row side-row"><div class="ba-visual">'+afterBox('side',sideUrl||frontUrl,D.eline||BA_T.defaultEline)+sideAfterCopy(D)+'</div></div>';document.getElementById('details').innerHTML=(D.detail_items||[]).map(x=>'<div class="detail-card"><div class="detail-top"><b>'+cleanReportText(x.title)+'</b><span class="score">'+cleanReportText(x.score)+'</span></div><p>'+cleanReportText(x.copy)+'</p><div class="pill-row">'+(x.tags||[]).map(t=>'<span class="pill">'+cleanReportText(t)+'</span>').join('')+'</div></div>').join('');document.getElementById('recs').innerHTML=(D.recommended_items||[]).map(r=>'<div class="rec-item"><div class="priority">'+cleanReportText(r.priority||BA_T.recommended)+'</div><div><b>'+cleanReportText(r.name)+'</b><p>'+cleanReportText(r.detail)+'</p><p>'+cleanReportText(r.reason)+'</p></div></div>').join('');document.getElementById('hospitals').innerHTML=(D.hospitals||[]).map(h=>'<div class="hospital-card"><div><b>'+cleanReportText(h.name)+'</b><p>'+cleanReportText(h.meta)+'</p><div class="pill-row">'+(h.tags||[]).map(t=>'<span class="pill">'+cleanReportText(t)+'</span>').join('')+'</div></div><div class="match">'+cleanReportText(h.match)+'<br><small>'+BA_T.matchRate+'</small></div></div>').join('');document.getElementById('prices').innerHTML=(D.prices||[]).map(p=>'<div class="price-row"><div><b>'+cleanReportText(p.name)+'</b><p>'+cleanReportText(p.note)+'</p></div><b>'+cleanReportText(p.value)+'</b></div>').join('');document.getElementById('totalPrice').textContent=cleanReportText(D.estimate_total||BA_T.defaultTotal);document.getElementById('summary').textContent=cleanReportText(D.sum||BA_T.summaryFallback);}
 function submitLead(){const name=document.getElementById('leadName').value,phone=document.getElementById('leadPhone').value;if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}localStorage.setItem('faceiq_lead_'+Date.now(),JSON.stringify({name,phone,concern:selectedConcern,createdAt:new Date().toISOString()}));document.getElementById('leadDone').classList.remove('hidden');}
 </script>
 
@@ -584,16 +593,16 @@ function submitLead(){const name=document.getElementById('leadName').value,phone
     <div style="width:40px;height:4px;background:#e0d5cc;border-radius:99px;margin:0 auto 20px;"></div>
     <div style="font-size:11px;font-weight:900;letter-spacing:.14em;color:#b88a55;margin-bottom:8px;">FULL REPORT</div>
     <div style="font-size:22px;font-weight:900;color:#221514;margin-bottom:6px;">상세 분석 리포트 잠금 해제</div>
-    <div style="font-size:13px;color:#7a615d;line-height:1.6;margin-bottom:20px;">AI가 측정한 황금비율 수치, 부위별 상세 분석,<br>균형도 데이터를 전체 공개합니다.</div>
+    <div style="font-size:13px;color:#7a615d;line-height:1.6;margin-bottom:20px;">프리미엄 리포트의 부위별 상세 분석과<br>개선 포인트를 전체 공개합니다.</div>
     <div style="background:#fff8f4;border:1px solid #f2d5cc;border-radius:14px;padding:14px 16px;margin-bottom:12px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
         <span style="font-size:13px;font-weight:800;color:#221514;">Full Detailed Report</span>
         <span style="font-size:18px;font-weight:900;color:#ff6272;">$3</span>
       </div>
-      <div style="font-size:11px;color:#7a615d;">황금비율 수치 · 부위별 분석 · 균형도 · PDF 포함</div>
+      <div style="font-size:11px;color:#7a615d;">부위별 분석 · 개선 포인트 · PDF 포함</div>
     </div>
     <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:16px;line-height:1.6;">
-      본 리포트는 AI 측정 참고용 데이터이며, 의료적 진단이 아닙니다.<br>Visa · Mastercard · 해외카드 결제 가능
+      본 리포트는 미용 참고용 자료이며, 의료적 진단이 아닙니다.<br>Visa · Mastercard · 해외카드 결제 가능
     </div>
     <div style="display:grid;gap:8px;">
       <a href="https://pay.airwallex.com/sghjsywtsdod" target="_blank" onclick="onPayClick()"
