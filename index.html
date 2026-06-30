@@ -533,7 +533,7 @@ async function startAnalysis(){
       },
       body:JSON.stringify({
         model:'claude-sonnet-4-6',
-        max_tokens:2000,
+        max_tokens:8000,
         messages:[{role:'user',content}]
       })
     });
@@ -541,7 +541,10 @@ async function startAnalysis(){
     if(!res.ok)throw new Error('API 오류: '+res.status);
     const data=await res.json();
     const text=data.content[0].text.trim();
-    const jsonStr=text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    const cleaned=text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    const firstJson=cleaned.indexOf('{');
+    const lastJson=cleaned.lastIndexOf('}');
+    const jsonStr=(firstJson>=0&&lastJson>firstJson)?cleaned.slice(firstJson,lastJson+1):cleaned;
     aiData=JSON.parse(jsonStr);
     setLoadingStep(6, '분석 완료! 리포트로 이동합니다.');
     setTimeout(()=>go('report'),800);
@@ -619,5 +622,3 @@ function checkHospitalPw(){var v=document.getElementById("hospitalPwInput").valu
 </script>
 </body>
 </html>
-
-
