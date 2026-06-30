@@ -247,7 +247,7 @@ body{
     <p class="copy">사진 기반 미용 지표를 계산해 코, 눈, 윤곽, 입술의 구조적 원인을 리포트로 정리합니다.</p>
     <button class="btn" style="margin-top:28px" onclick="go('upload')">무료로 구조 분석 시작 →</button>
     <div class="stats"><div class="stat"><b>12,400+</b><span>누적 분석</span></div><div class="stat"><b>4.9★</b><span>만족도</span></div><div class="stat"><b>100%</b><span>비식별</span></div></div>
-    <div class="trust-strip"><span class="trust-strip-item">🔒 제휴 병원 매칭 서비스</span><span class="trust-strip-sep">·</span><span class="trust-strip-item">🔒 사진은 분석 후 즉시 삭제</span></div>
+    <div class="trust-strip"><span class="trust-strip-item">🔒 병원 매칭 서비스</span><span class="trust-strip-sep">·</span><span class="trust-strip-item">🔒 사진은 분석 후 즉시 삭제</span></div>
     <div class="ba-preview-section">
       <div class="ba-preview-label-row"><span class="ba-preview-label">AI 분석 결과 미리보기</span></div>
       <div class="ba-preview-cards" id="landingBaCards">
@@ -475,8 +475,8 @@ async function startAnalysis(){
 
 환자 정보: 성별=${gender}, 나이=${age}, 주요관심=${selectedConcern}
 
-  "hospitals" 필드는 앱에서 고정 제휴 병원 리스트로 표시하므로 응답에서 생략해도 됩니다. 병원명이나 주소를 임의 생성하지 마세요.
-  제휴 병원 목록:
+  "hospitals" 필드는 앱에서 고정 병원 리스트로 표시하므로 응답에서 생략해도 됩니다. 병원명이나 주소를 임의 생성하지 마세요.
+  병원 목록:
   - 아이루미성형외과 | 강남구 강남대로 596 극동빌딩 8층(논현동)
   - 유캔비성형외과 | 서초구 강남대로 405 7층(서초동)
   - 더마스터의원 | 강남구 도산대로55길 29 3층(청담동)
@@ -581,15 +581,15 @@ Object.assign(BA_T,{
   analysisMode:""
 });
 const PARTNER_HOSPITALS=[
-  {name:"아이루미성형외과",meta:"강남구 강남대로 596 극동빌딩 8층(논현동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"유캔비성형외과",meta:"서초구 강남대로 405 7층(서초동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"더마스터의원",meta:"강남구 도산대로55길 29 3층(청담동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"바노바기성형외과",meta:"강남구 논현로 517(역삼동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"미작의원",meta:"서초구 강남대로 589 멀버리힐스 메디컬타워 6층(잠원동) - 공식 홈페이지 기준",tags:["제휴 병원"],match:"제휴"},
-  {name:"정우성형외과",meta:"강남구 논현로 831 2층(신사동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"루비성형외과",meta:"강남구 도산대로 108 9·10층(논현동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"아비쥬의원",meta:"서초구 서초대로77길 9(서초동)",tags:["제휴 병원"],match:"제휴"},
-  {name:"화이트성형외과",meta:"강남구 도산대로 318 SB타워(논현동)",tags:["제휴 병원"],match:"제휴"}
+  {name:"아이루미성형외과",meta:"강남구 강남대로 596 극동빌딩 8층(논현동)",tags:[],match:""},
+  {name:"유캔비성형외과",meta:"서초구 강남대로 405 7층(서초동)",tags:[],match:""},
+  {name:"더마스터의원",meta:"강남구 도산대로55길 29 3층(청담동)",tags:[],match:""},
+  {name:"바노바기성형외과",meta:"강남구 논현로 517(역삼동)",tags:[],match:""},
+  {name:"미작의원",meta:"서초구 강남대로 589 멀버리힐스 메디컬타워 6층(잠원동) - 공식 홈페이지 기준",tags:[],match:""},
+  {name:"정우성형외과",meta:"강남구 논현로 831 2층(신사동)",tags:[],match:""},
+  {name:"루비성형외과",meta:"강남구 도산대로 108 9·10층(논현동)",tags:[],match:""},
+  {name:"아비쥬의원",meta:"서초구 서초대로77길 9(서초동)",tags:[],match:""},
+  {name:"화이트성형외과",meta:"강남구 도산대로 318 SB타워(논현동)",tags:[],match:""}
 ];
 function imgBox(kind,src,label){return beforeBox(kind,src,label);}
 function beforeBox(kind,src,label){const side=kind==='side';return '<div class="ba-photo '+kind+' before">'+(src?'<img src="'+src+'">':'<div class="dummy-face">BEFORE<br>IMAGE</div>')+overlay(kind,label)+'<div class="ba-label '+(side?'side-label':'')+'">'+(side?'SIDE &middot; BEFORE':'BEFORE (Current Analysis)')+'</div></div>';}
@@ -611,7 +611,8 @@ function renderIndexScores(D){const scores=D.index_scores||[];const fallback='<p
 function priceToManwon(value){const matches=String(value||'').replace(/,/g,'').match(/\d+(?:\.\d+)?/g);if(!matches||!matches.length)return null;return Number(matches[0]);}
 function formatManwon(value){return Number.isInteger(value)?value.toLocaleString('ko-KR')+'만원~':value.toLocaleString('ko-KR',{maximumFractionDigits:1})+'만원~';}
 function calcEstimateTotal(prices){if(!Array.isArray(prices)||!prices.length)return null;const packageItem=prices.find(p=>/종합|패키지|package/i.test(String(p.name||''))&&priceToManwon(p.value)!=null);if(packageItem)return formatManwon(priceToManwon(packageItem.value));const items=prices.filter(p=>!/종합|패키지|package/i.test(String(p.name||'')));let sum=0;let hasValid=false;items.forEach(p=>{const amount=priceToManwon(p.value);if(amount!=null){sum+=amount;hasValid=true;}});if(!hasValid)return null;return formatManwon(sum);}
-function renderHospitalList(){return PARTNER_HOSPITALS.map(h=>'<div class="hospital-card"><div><b>'+cleanReportText(h.name)+'</b><p>'+cleanReportText(h.meta)+'</p><div class="pill-row">'+(h.tags||[]).map(t=>'<span class="pill">'+cleanReportText(t)+'</span>').join('')+'</div></div><div class="match">'+cleanReportText(h.match)+'<br><small>병원</small></div></div>').join('');}
+function pickRandomHospitals(count){return [...PARTNER_HOSPITALS].sort(()=>Math.random()-.5).slice(0,count);}
+function renderHospitalList(){return pickRandomHospitals(4).map(h=>'<div class="hospital-card"><div><b>'+cleanReportText(h.name)+'</b><p>'+cleanReportText(h.meta)+'</p></div></div>').join('');}
 function renderReport(){
   const D=aiData||{};
   const metrics=D.metrics||[
