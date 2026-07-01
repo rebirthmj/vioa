@@ -611,6 +611,7 @@ function renderIndexScores(D){const scores=D.index_scores||[];const fallback='<p
 
 function priceToManwon(value){const matches=String(value||'').replace(/,/g,'').match(/\d+(?:\.\d+)?/g);if(!matches||!matches.length)return null;return Number(matches[0]);}
 function formatManwon(value){return Number.isInteger(value)?value.toLocaleString('ko-KR')+'만원~':value.toLocaleString('ko-KR',{maximumFractionDigits:1})+'만원~';}
+function isPackagePrice(p){return /패키지/.test(String(p&&p.name||''));}
 function calcEstimateTotal(prices){if(!Array.isArray(prices)||!prices.length)return null;let sum=0;let hasRange=false;let hasValid=false;prices.forEach(p=>{const value=String(p&&p.value||'');if(value.includes('~'))hasRange=true;const amount=priceToManwon(value);if(amount!=null){sum+=amount;hasValid=true;}});if(!hasValid||sum<=0)return null;return formatManwon(sum).replace(/~$/,'')+(hasRange?'~':'');}
 function pickRandomHospitals(count){return [...PARTNER_HOSPITALS].sort(()=>Math.random()-.5).slice(0,count);}
 function renderHospitalList(){return pickRandomHospitals(4).map(h=>'<div class="hospital-card"><div><b>'+cleanReportText(h.name)+'</b><p>'+cleanReportText(h.meta)+'</p></div></div>').join('');}
@@ -628,8 +629,9 @@ function renderReport(){
   document.getElementById('details').innerHTML=(D.detail_items||[]).map(x=>'<div class="detail-card"><div class="detail-top"><b>'+cleanReportText(x.title)+'</b><span class="score">'+cleanReportText(x.score)+'</span></div><p>'+cleanReportText(x.copy)+'</p><div class="pill-row">'+(x.tags||[]).map(t=>'<span class="pill">'+cleanReportText(t)+'</span>').join('')+'</div></div>').join('');
   document.getElementById('recs').innerHTML=(D.recommended_items||[]).map(r=>'<div class="rec-item"><div class="priority">'+cleanReportText(r.priority||BA_T.recommended)+'</div><div><b>'+cleanReportText(r.name)+'</b><p>'+cleanReportText(r.detail)+'</p><p>'+cleanReportText(r.reason)+'</p></div></div>').join('');
   document.getElementById('hospitals').innerHTML=renderHospitalList();
-  document.getElementById('prices').innerHTML=(D.prices||[]).map(p=>'<div class="price-row"><div><b>'+cleanReportText(p.name)+'</b><p>'+cleanReportText(p.note)+'</p></div><b>'+cleanReportText(p.value)+'</b></div>').join('');
-  document.getElementById('totalPrice').textContent=cleanReportText(calcEstimateTotal(D.prices)||D.estimate_total||BA_T.defaultTotal);
+  const visiblePrices=(D.prices||[]).filter(p=>!isPackagePrice(p));
+  document.getElementById('prices').innerHTML=visiblePrices.map(p=>'<div class="price-row"><div><b>'+cleanReportText(p.name)+'</b><p>'+cleanReportText(p.note)+'</p></div><b>'+cleanReportText(p.value)+'</b></div>').join('');
+  document.getElementById('totalPrice').textContent=cleanReportText(calcEstimateTotal(visiblePrices)||D.estimate_total||BA_T.defaultTotal);
   document.getElementById('summary').textContent=cleanReportText(D.sum||BA_T.summaryFallback);
 }
 function submitLead(){const name=document.getElementById('leadName').value,phone=document.getElementById('leadPhone').value;if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}localStorage.setItem('faceiq_lead_'+Date.now(),JSON.stringify({name,phone,concern:selectedConcern,createdAt:new Date().toISOString()}));document.getElementById('leadDone').classList.remove('hidden');}
