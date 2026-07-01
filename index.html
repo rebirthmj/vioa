@@ -363,7 +363,8 @@ body{
 <script>
 const concerns=['코 구조','눈 비율','윤곽','입술','전체','재수술 고민'];let selectedConcern='전체',gender='여성',age='20대',aiData=null,frontUrl='',sideUrl='';
 function tick(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});}setInterval(tick,1000);tick();
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.textContent.includes({landing:'랜딩',upload:'업로드',report:'리포트',consult:'상담',admin:'관리자'}[id])));if(id==='report'&&aiData)renderReport();}
+function requireAdminAccess(){const code=prompt('관리자 비밀번호를 입력해주세요.');if(code==='1111')return true;if(code!==null)alert('비밀번호가 올바르지 않습니다.');return false;}
+function go(id){if(id==='admin'&&!requireAdminAccess())return;document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.textContent.includes({landing:'랜딩',upload:'업로드',report:'리포트',consult:'상담',admin:'관리자'}[id])));if(id==='report'&&aiData)renderReport();}
 function initConcerns(){const wrap=document.getElementById('concerns');wrap.innerHTML=concerns.map(c=>'<button class="chip '+(c===selectedConcern?'active':'')+'" onclick="selectConcern(this,\''+c+'\')">'+c+'</button>').join('');}initConcerns();
 function selectConcern(btn,c){selectedConcern=c;document.querySelectorAll('#concerns .chip').forEach(x=>x.classList.remove('active'));btn.classList.add('active');}
 function setGender(btn,v){gender=v;btn.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');}
