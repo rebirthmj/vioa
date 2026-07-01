@@ -610,7 +610,7 @@ function renderIndexScores(D){const scores=D.index_scores||[];const fallback='<p
 
 function priceToManwon(value){const matches=String(value||'').replace(/,/g,'').match(/\d+(?:\.\d+)?/g);if(!matches||!matches.length)return null;return Number(matches[0]);}
 function formatManwon(value){return Number.isInteger(value)?value.toLocaleString('ko-KR')+'만원~':value.toLocaleString('ko-KR',{maximumFractionDigits:1})+'만원~';}
-function calcEstimateTotal(prices){if(!Array.isArray(prices)||!prices.length)return null;const packageItem=prices.find(p=>/종합|패키지|package/i.test(String(p.name||''))&&priceToManwon(p.value)!=null);if(packageItem)return formatManwon(priceToManwon(packageItem.value));const items=prices.filter(p=>!/종합|패키지|package/i.test(String(p.name||'')));let sum=0;let hasValid=false;items.forEach(p=>{const amount=priceToManwon(p.value);if(amount!=null){sum+=amount;hasValid=true;}});if(!hasValid)return null;return formatManwon(sum);}
+function calcEstimateTotal(prices){if(!Array.isArray(prices)||!prices.length)return null;let sum=0;let hasRange=false;let hasValid=false;prices.forEach(p=>{const value=String(p&&p.value||'');if(value.includes('~'))hasRange=true;const amount=priceToManwon(value);if(amount!=null){sum+=amount;hasValid=true;}});if(!hasValid||sum<=0)return null;return formatManwon(sum).replace(/~$/,'')+(hasRange?'~':'');}
 function pickRandomHospitals(count){return [...PARTNER_HOSPITALS].sort(()=>Math.random()-.5).slice(0,count);}
 function renderHospitalList(){return pickRandomHospitals(4).map(h=>'<div class="hospital-card"><div><b>'+cleanReportText(h.name)+'</b><p>'+cleanReportText(h.meta)+'</p></div></div>').join('');}
 function renderReport(){
